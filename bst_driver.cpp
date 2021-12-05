@@ -6,6 +6,19 @@
 #include "bst.h"
 using namespace std;
 
+/********************************************************************************************
+
+Name:Vladimir Petit-Homme	                            Z#:Z15346795
+Course: Date Structures and Algorithm Analysis (COP3530) Professor: Dr. Petrie
+Due Date: 12/05/2021	Due Time: 11:59pm
+Total Points: 100 Assignment 10: Binary search Tree
+
+Description: This assignment test the function of binary search trees.
+
+
+
+*********************************************************************************************/
+
 int main( )
 {
 

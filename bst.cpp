@@ -17,7 +17,13 @@ implementation.
 
 using namespace std;
 
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Default Constructor
+Pre-Condition: root is initialized to null.
+Post-Condition: information from the count_data-6 file is loaded into a binary search tree
+Description:  This function parses the file county_data-6 into a binary tree. This function sorts the state from the population size.
 
+**********************************************************************************************************************************************************/
 bst::bst() : root(0) {
     string line;
     string name;
@@ -30,7 +36,7 @@ bst::bst() : root(0) {
     inFile.open("county_data-6.txt");
 
     if (inFile.is_open()) {
-        cout << " file is open" << endl;
+      //  cout << " file is open" << endl;
     } else if (!inFile.is_open()) {
         cout << "could not open file" << endl;
     }
@@ -47,16 +53,40 @@ bst::bst() : root(0) {
 
 
 }
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Empty Constructor
+Pre-Condition: root is initialized to null.
+Post-Condition: none
+Description:  This function checks if a root is null.
+
+**********************************************************************************************************************************************************/
 
 bool bst::empty() {
 
     return (root == 0);
 }
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Insert Constructor
+Pre-Condition: none.
+Post-Condition: inserts information into a binary search tree.
+Description:  This function inserts county names and their given population into a binary search tree.
+
+**********************************************************************************************************************************************************/
+
 
 void bst::insert(const string &item, const double &population) {
 
     insert(root, item, population);
 }
+
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Insert Constructor
+Pre-Condition: none.
+Post-Condition: inserts information into a binary search tree.
+Description:  This function inserts county names and their given population into a binary search tree  inorder .
+
+**********************************************************************************************************************************************************/
+
 
 void bst::insert(treenode *&loc_ptr, const string &item, const double &population) {
     if (loc_ptr == 0) {
@@ -69,13 +99,29 @@ void bst::insert(treenode *&loc_ptr, const string &item, const double &populatio
     else if (loc_ptr->county_name < item)
         insert(loc_ptr->rchild, item, population);
     else
-        cout << "the item is already in the tree\n";
+        cout <<"the item is already in the tree\n";
 }
 
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Search Constructor
+Pre-Condition: none.
+Post-Condition: Searches information in a binary search tree.
+Description:  This function searches for a county name in a binary search tree.
+
+**********************************************************************************************************************************************************/
 
 treenode *bst::search_tree(string item) {
     return search_tree(root, item);
 }
+
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Search Constructor
+Pre-Condition: none.
+Post-Condition: Searches information in a binary search tree.
+Description:  This function searches for a county name in a binary search tree inorder .
+
+**********************************************************************************************************************************************************/
+
 
 treenode *bst::search_tree(treenode *loc_ptr, string item) {
     if (loc_ptr != 0) {
@@ -89,10 +135,25 @@ treenode *bst::search_tree(treenode *loc_ptr, string item) {
         return loc_ptr;
 }
 
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Delete Name Constructor
+Pre-Condition: none.
+Post-Condition: removes a node from a binary search tree.
+Description:  This function removes a county name from a binary search tree.
+
+**********************************************************************************************************************************************************/
+
 
 void bst::del_name(string item) {
     del_name(root, item);
 }
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Delete Name Constructor
+Pre-Condition: none.
+Post-Condition: removes a node from a binary search tree.
+Description:  This function removes a county name from a binary search tree inorder.
+
+**********************************************************************************************************************************************************/
 
 void bst::del_name(treenode*& loc_ptr, string item) {
   //  search_tree(item);
@@ -138,10 +199,24 @@ treenode *bst::inorder_succ(treenode *loc_ptr) {
     }
     return ptr;
 }
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Print Constructor
+Pre-Condition: none.
+Post-Condition: Prints binary search tree
+Description:  This function prints BST to the console.
+
+**********************************************************************************************************************************************************/
 
 void bst::print_tree() {
     print_tree(root);
 }
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Print Constructor
+Pre-Condition: none.
+Post-Condition: Prints binary search tree
+Description:  This function prints BST to the console inorder.
+
+**********************************************************************************************************************************************************/
 
 void bst::print_tree(treenode *loc_ptr) {
     if (loc_ptr != 0) {
@@ -151,12 +226,27 @@ void bst::print_tree(treenode *loc_ptr) {
     }
 }
 
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Destructor
+Pre-Condition: none.
+Post-Condition: Destroys a binary search tree
+Description:  This function deletes a  binary search tree.
+
+**********************************************************************************************************************************************************/
 
 bst::~bst() {
     while (root != 0) {
         del_name(root->county_name);
     }
 }
+
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  County Ranges
+Pre-Condition: none.
+Post-Condition: searches for a binary search tree nodes within predefined range.
+Description:  This function searches for binary search tree nodes within predefined range.
+
+**********************************************************************************************************************************************************/
 
 void bst::county_ranges(treenode *&loc_ptr, const string &min_name, const string &max_name) {
 //cout << "printing ranges" << endl;
@@ -169,6 +259,13 @@ void bst::county_ranges(treenode *&loc_ptr, const string &min_name, const string
         county_ranges(loc_ptr->rchild, min_name, max_name);
     }
 }
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  County Ranges
+Pre-Condition: none.
+Post-Condition: prints a binary search tree nodes within predefined range.
+Description:  This function prints binary search tree nodes within predefined range.
+
+**********************************************************************************************************************************************************/
 
 void bst::county_ranges(const string &min_name, const string &max_name) {
     cout << "printing ranges" << endl;
@@ -176,11 +273,16 @@ void bst::county_ranges(const string &min_name, const string &max_name) {
     county_ranges(root,min_name,max_name);
 }
 
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Sorted info
+Pre-Condition: none.
+Post-Condition: prints a binary search tree nodes to an outfile.
+Description:  This function prints binary search tree nodes to an outfile inorder.
+
+**********************************************************************************************************************************************************/
+
 void bst::sorted_info(ostream  & out, treenode *& loc_ptr) {
-   /* ofstream outfile;
-    outfile.open("county_info.txt");
-    outfile.setf(ios::fixed);
-    outfile.precision(0);*/
+
     out.setf(ios::fixed);
     out.precision(0);
     if (loc_ptr != 0) {
@@ -192,12 +294,26 @@ void bst::sorted_info(ostream  & out, treenode *& loc_ptr) {
 
 
 }
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  Sorted info
+Pre-Condition: none.
+Post-Condition: prints a binary search tree nodes to an outfile.
+Description:  This function prints binary search tree nodes to an outfile .
+
+**********************************************************************************************************************************************************/
 
 void bst::sorted_info() {
     ofstream outfile("county_info.txt");
    // outfile.open("county_info.txt");
  sorted_info(outfile,root);
 }
+/***********************FUNCTION HEADER ******************************************************************************************************************
+Name:  empty_tree
+Pre-Condition: none.
+Post-Condition: Binary search tree is destroyed.
+Description:  This function destroys a binary search tree.
+
+**********************************************************************************************************************************************************/
 
 void bst::empty_tree() {
     this->~bst();
